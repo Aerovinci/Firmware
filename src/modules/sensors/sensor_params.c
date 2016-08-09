@@ -3188,3 +3188,16 @@ PARAM_DEFINE_INT32(PWM_AUX_MAX, 2000);
  * @group PWM Outputs
  */
 PARAM_DEFINE_INT32(PWM_AUX_DISARMED, 1000);
+PARAM_DEFINE_FLOAT(MOT_SLEW_MAX, 0.0f);
+
+/**
+ * Thrust to PWM model parameter
+ *
+ * Parameter used to model the relationship between static thrust and motor
+ * input PWM. Model is: thrust = (1-factor)*PWM + factor * PWM^2
+ *
+ * @min 0.0
+ * @max 1.0
+ * @group PWM Outputs
+ */
+PARAM_DEFINE_FLOAT(THR_MDL_FAC, 0.65f);

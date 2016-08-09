@@ -71,6 +71,7 @@ static bool should_arm = false;
 static bool should_arm_nothrottle = false;
 static bool should_always_enable_pwm = false;
 static volatile bool in_mixer = false;
+bool update_mc_thrust_param;
 
 extern int _sbus_fd;
 
@@ -232,8 +233,13 @@ mixer_tick(void)
 		float	outputs[PX4IO_SERVO_COUNT];
 		unsigned mixed;
 
-		/* mix */
+		/* update parameter for mc thrust model if it updated */
+		if (update_mc_thrust_param) {
+			mixer_group.set_thrust_factor(REG_TO_FLOAT(r_setup_thr_fac));
+			update_mc_thrust_param = false;
+		}
 
+		/* mix */
 		/* poor mans mutex */
 		in_mixer = true;
 		mixed = mixer_group.mix(&outputs[0], PX4IO_SERVO_COUNT, &r_mixer_limits);

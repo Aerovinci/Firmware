@@ -112,6 +112,17 @@ MixerGroup::mix(float *outputs, unsigned space, uint16_t *status_reg)
 	return index;
 }
 
+void
+MixerGroup::set_thrust_factor(float val)
+{
+	Mixer	*mixer = _first;
+
+	while (mixer != nullptr) {
+		mixer->set_thrust_factor(val);
+		mixer = mixer->_next;
+	}
+}
+
 unsigned
 MixerGroup::count()
 {

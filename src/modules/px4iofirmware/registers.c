@@ -56,6 +56,7 @@
 static int	registers_set_one(uint8_t page, uint8_t offset, uint16_t value);
 static void	pwm_configure_rates(uint16_t map, uint16_t defaultrate, uint16_t altrate);
 
+bool update_mc_thrust_factor;
 /**
  * PAGE 0
  *
@@ -180,7 +181,8 @@ volatile uint16_t	r_page_setup[] = {
 	[PX4IO_P_SETUP_TRIM_YAW] = 0,
 	[PX4IO_P_SETUP_SCALE_ROLL] = 10000,
 	[PX4IO_P_SETUP_SCALE_PITCH] = 10000,
-	[PX4IO_P_SETUP_SCALE_YAW] = 10000
+	[PX4IO_P_SETUP_SCALE_YAW] = 10000,
+	[PX4IO_P_SETUP_THR_MDL_FAC] = 0
 };
 
 #ifdef CONFIG_ARCH_BOARD_PX4IO_V2
@@ -686,6 +688,10 @@ registers_set_one(uint8_t page, uint8_t offset, uint16_t value)
 		case PX4IO_P_SETUP_SCALE_PITCH:
 		case PX4IO_P_SETUP_SCALE_YAW:
 			r_page_setup[offset] = value;
+			break;
+
+		case PX4IO_P_SETUP_THR_MDL_FAC:
+			update_mc_thrust_factor = true;
 			break;
 
 		case PX4IO_P_SETUP_SBUS_RATE:

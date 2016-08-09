@@ -126,6 +126,7 @@ extern uint16_t			r_page_servo_disarmed[];	/* PX4IO_PAGE_DISARMED_PWM */
 #define r_setup_scale_pitch	r_page_setup[PX4IO_P_SETUP_SCALE_PITCH]
 #define r_setup_scale_yaw	r_page_setup[PX4IO_P_SETUP_SCALE_YAW]
 #define r_setup_sbus_rate	r_page_setup[PX4IO_P_SETUP_SBUS_RATE]
+#define r_setup_thr_fac		r_page_setup[PX4IO_P_SETUP_THR_MDL_FAC]
 
 #define r_control_values	(&r_page_controls[0])
 
@@ -146,6 +147,7 @@ struct sys_state_s {
 
 extern struct sys_state_s system_state;
 
+extern bool update_mc_thrust_factor;
 /*
  * PWM limit structure
  */

@@ -184,6 +184,13 @@ public:
 	 */
 	virtual void			groups_required(uint32_t &groups) = 0;
 
+	/**
+	 * @brief      Sets the thrust factor used to calculate mapping from desired thrust to pwm.
+	 *
+	 * @param[in]  val   The value
+	 */
+	virtual void 			set_thrust_factor(float val) {};
+
 protected:
 	/** client-supplied callback used when fetching control values */
 	ControlCallback			_control_cb;
@@ -311,6 +318,13 @@ public:
 	 * @return			Zero on successful load, nonzero otherwise.
 	 */
 	int				load_from_buf(const char *buf, unsigned &buflen);
+
+	/**
+	 * @brief      Sets the thrust factor used to calculate mapping from desired thrust to pwm.
+	 *
+	 * @param[in]  val   The value
+	 */
+	virtual void	set_thrust_factor(float val);
 
 private:
 	Mixer				*_first;	/**< linked list of mixers */
@@ -518,11 +532,20 @@ public:
 	virtual unsigned		mix(float *outputs, unsigned space, uint16_t *status_reg);
 	virtual void			groups_required(uint32_t &groups);
 
+
+	/**
+	 * @brief      Sets the thrust factor used to calculate mapping from desired thrust to pwm.
+	 *
+	 * @param[in]  val   The value
+	 */
+	virtual void			set_thrust_factor(float val) {_thrust_factor = val;}
+
 private:
 	float				_roll_scale;
 	float				_pitch_scale;
 	float				_yaw_scale;
 	float				_idle_speed;
+	float 				_thrust_factor;
 
 	orb_advert_t			_limits_pub;
 	multirotor_motor_limits_s 	_limits;
