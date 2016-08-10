@@ -370,8 +370,11 @@ MultirotorMixer::mix(float *outputs, unsigned space, uint16_t *status_reg)
 			to do it as at this stage the outputs are in that range.
 		 */
 		if (_thrust_factor > 0.0f) {
-			outputs[i] = -(1.0f - _thrust_factor) / (2.0f * _thrust_factor) + sqrtf((1.0f - _thrust_factor) * (1.0f - _thrust_factor) / (4.0f * _thrust_factor * _thrust_factor) + (outputs[i] < 0.0f ? 0.0f : outputs[i] / _thrust_factor));
+			outputs[i] = -(1.0f - _thrust_factor) / (2.0f * _thrust_factor) + sqrtf((1.0f - _thrust_factor) *
+					(1.0f - _thrust_factor) / (4.0f * _thrust_factor * _thrust_factor) + (outputs[i] < 0.0f ? 0.0f : outputs[i] /
+							_thrust_factor));
 		}
+
 		outputs[i] = constrain(_idle_speed + (outputs[i] * (1.0f - _idle_speed)), _idle_speed, 1.0f);
 	}
 
