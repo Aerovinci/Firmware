@@ -180,6 +180,9 @@ MultirotorMixer::from_text(Mixer::ControlCallback control_cb, uintptr_t cb_handl
 	} else if (!strcmp(geomname, "8x")) {
 		geometry = MultirotorGeometry::OCTA_X;
 
+	} else if (!strcmp(geomname, "8v")) {
+		geometry = MultirotorGeometry::OCTA_VTOL;
+
 	} else if (!strcmp(geomname, "8c")) {
 		geometry = MultirotorGeometry::OCTA_COX;
 
